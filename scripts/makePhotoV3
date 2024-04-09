@@ -1,18 +1,27 @@
 #!/bin/bash
 
+config() {
+	cam_width=1280
+	cam_height=1024
+	cam_hflip=1
+	cam_vflip=1
+	save_path=/home/pi/Pictures/growing #todo: make sure this directory exists and is writable
+	img_file='temp.jpg'
+}
+
 main() {
 	local now save_path
+	config
 
 	now=$(date +"%Y-%m-%d_%H%M")
-	save_path=/home/pi/Pictures/growing #todo: make sure this directory exists and is writable
 
 	##CameraV3
-	/usr/bin/libcamera-jpeg --width 1280 --height 1024 --hflip 1 --vflip 1 -n --hdr -o "${save_path}"/temp.jpg #todo: make params configurable
+	/usr/bin/libcamera-jpeg --width ${cam_width} --height ${cam_height} --hflip ${cam_hflip} --vflip ${cam_vflip} -n --hdr -o "${save_path}/${img_file}"
 
-	./transmitPhoto "${save_path}"/temp.jpg
+	./transmitPhoto "${save_path}/${img_file}"
 
 	#Rename last photo #todo: make persistence configurable
-	/bin/mv "${save_path}"/temp.jpg "${save_path}"/"${now}".jpg
+	/bin/mv "${save_path}/${img_file}" "${save_path}/${now}.jpg"
 }
 
 main "$@"
