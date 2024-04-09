@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+#todo: implement checks
+
+token='' # set your token here
+chatId='' # set your chat id here
+url="https://api.telegram.org/bot$token/sendPhoto"
+
+curl -X POST -H "Content-Type: multipart/form-data" -F "chat_id=$chatId" -F "photo=@$1" "$url"

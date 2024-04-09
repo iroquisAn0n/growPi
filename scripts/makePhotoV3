@@ -1,0 +1,12 @@
+#!/bin/bash
+
+DATE=$(date +"%Y-%m-%d_%H%M")
+SAVE_PATH=/home/pi/Pictures/growing #todo: make sure this directory exists and is writable
+
+##CameraV3
+/usr/bin/libcamera-jpeg --width 1280 --height 1024 --hflip 1 --vflip 1 -n --hdr -o "$SAVE_PATH"/temp.jpg #todo: make params configurable
+
+./transmitPhoto "$SAVE_PATH"/temp.jpg
+
+#Rename last photo #todo: make persistence configurable
+/bin/mv "$SAVE_PATH"/temp.jpg "$SAVE_PATH"/"$DATE".jpg
