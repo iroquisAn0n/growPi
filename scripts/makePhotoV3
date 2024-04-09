@@ -1,12 +1,18 @@
 #!/bin/bash
 
-DATE=$(date +"%Y-%m-%d_%H%M")
-SAVE_PATH=/home/pi/Pictures/growing #todo: make sure this directory exists and is writable
+main() {
+	local now save_path
 
-##CameraV3
-/usr/bin/libcamera-jpeg --width 1280 --height 1024 --hflip 1 --vflip 1 -n --hdr -o "$SAVE_PATH"/temp.jpg #todo: make params configurable
+	now=$(date +"%Y-%m-%d_%H%M")
+	save_path=/home/pi/Pictures/growing #todo: make sure this directory exists and is writable
 
-./transmitPhoto "$SAVE_PATH"/temp.jpg
+	##CameraV3
+	/usr/bin/libcamera-jpeg --width 1280 --height 1024 --hflip 1 --vflip 1 -n --hdr -o "${save_path}"/temp.jpg #todo: make params configurable
 
-#Rename last photo #todo: make persistence configurable
-/bin/mv "$SAVE_PATH"/temp.jpg "$SAVE_PATH"/"$DATE".jpg
+	./transmitPhoto "${save_path}"/temp.jpg
+
+	#Rename last photo #todo: make persistence configurable
+	/bin/mv "${save_path}"/temp.jpg "${save_path}"/"${now}".jpg
+}
+
+main "$@"
