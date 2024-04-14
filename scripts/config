@@ -1,0 +1,10 @@
+# camera settings
+width=1280
+height=1024
+hflip=1
+vflip=1
+path=$PWD/photos
+name='temp.jpg'
+
+# general config
+persistence=true
