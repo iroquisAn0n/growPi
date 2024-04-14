@@ -1,12 +1,27 @@
 #!/bin/bash
 
-DATE=$(date +"%Y-%m-%d_%H%M")
-SAVE_PATH=/home/pi/Pictures/growing #todo: make sure this directory exists and is writable
+config() {
+	cam_width=1280
+	cam_height=1024
+	cam_hflip=1
+	cam_vflip=1
+	save_path=/home/pi/Pictures/growing #todo: make sure this directory exists and is writable
+	img_file='temp.jpg'
+}
 
-##CameraV3
-/usr/bin/libcamera-jpeg --width 1280 --height 1024 --hflip 1 --vflip 1 -n --hdr -o "$SAVE_PATH"/temp.jpg #todo: make params configurable
+main() {
+	local now save_path
+	config
 
-./transmitPhoto "$SAVE_PATH"/temp.jpg
+	now=$(date +"%Y-%m-%d_%H%M")
 
-#Rename last photo #todo: make persistence configurable
-/bin/mv "$SAVE_PATH"/temp.jpg "$SAVE_PATH"/"$DATE".jpg
+	##CameraV3
+	/usr/bin/libcamera-jpeg --width ${cam_width} --height ${cam_height} --hflip ${cam_hflip} --vflip ${cam_vflip} -n --hdr -o "${save_path}/${img_file}"
+
+	./transmitPhoto "${save_path}/${img_file}"
+
+	#Rename last photo #todo: make persistence configurable
+	/bin/mv "${save_path}/${img_file}" "${save_path}/${now}.jpg"
+}
+
+main "$@"
