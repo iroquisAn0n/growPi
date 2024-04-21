@@ -13,6 +13,8 @@ main() {
 	config
 
 url="https://api.telegram.org/bot${bot_token}/sendPhoto"
-
 curl -X POST -H "Content-Type: multipart/form-data" -F "chat_id=${receiver}" -F "photo=@$1" "$url"
+
+echo "Image transmitted to ${receiver}"
+
 }

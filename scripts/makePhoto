@@ -11,7 +11,7 @@ config() {
 	save_path=${path:-$PWD/photos}
 	img_name=${name:-"temp.jpg"}
 	persistence=${persistence:-true}
-	tg_forwarding=${tg_forwarding:-false}
+	tg_forwarding=${tgforwarding:-false}
 }
 
 main() {
