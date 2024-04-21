@@ -27,7 +27,8 @@ main() {
 if [ "${cam_version}" = "v3" ]; then
 	##CameraV3
 	/usr/bin/libcamera-jpeg --width "${cam_width}" --height "${cam_height}" --hflip "${cam_hflip}" --vflip "${cam_vflip}" -n --hdr -o "${save_path}"/"${img_name}"
-  elif [ "${cam_version}" = "v2_nvnoir" ]; then
+
+elif [ "${cam_version}" = "v2_nvnoir" ]; then
   ##CameraV2 - Night vision NoIR
   /usr/bin/libcamera-still --width "${cam_width}" --height "${cam_height}" --hflip "${cam_hflip}" --vflip "${cam_vflip}" --ev 0 -o "${save_path}"/"${img_name}"
   #todo: implement commands for all other versions
