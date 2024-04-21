@@ -1,6 +1,6 @@
 # general config
 persistence=true
-tg_forwarding=false
+tgforwarding=true
 
 #camera settings
 version=v3 #possible values: v2|v3|v2_nv|v3_nv|v2_nvnoir|v3_nvnoir
