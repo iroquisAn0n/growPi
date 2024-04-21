@@ -60,7 +60,7 @@ persist()
   now=$(date +"%Y-%m-%d_%H:%M:%S")
 
   file="${save_path}/${now}.jpg"
-  /bin/mv "${save_path}/${img_name}" "${file}"
+  /bin/cp "${save_path}/${img_name}" "${file}"
 
   echo "Image persisted at ${file}"
 }
