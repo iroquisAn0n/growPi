@@ -3,7 +3,7 @@ persistence=true
 tgforwarding=true
 
 #camera settings
-version=v3 #possible values: v2|v3|v2_nv|v3_nv|v2_nvnoir|v3_nvnoir
+version=v3 #possible values: v2|v3|webcam
 width=1280
 height=1024
 hflip=1
