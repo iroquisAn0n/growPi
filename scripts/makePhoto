@@ -1,9 +1,9 @@
 #!/bin/bash
 
-source config
+source ../config
 
 config() {
-  cam_version=${version:-v3}
+  cam_type=${type:-rpicam}
 	cam_width=${width:-1280}
 	cam_height=${height:-1024}
 	cam_hflip=${hflip:-1}
@@ -15,7 +15,7 @@ config() {
 }
 
 main() {
-	local now save_path persistence tg_forwarding cam_version
+	local now save_path persistence tg_forwarding cam_type
 	config
 
   if [ ! -d "${save_path}" ]; then
@@ -25,21 +25,21 @@ main() {
 #use version from argument, else use from config
   if [ $# -eq 1 ]
     then
-      cam_version=$1
+      cam_type=$1
   fi
 
 #todo: check if version is valid
-if [ "${cam_version}" = "v3" ]; then
-	##CameraV3
+if [ "${cam_type}" = "rpicam" ]; then
+	##rpicam
 	/usr/bin/libcamera-jpeg --width "${cam_width}" --height "${cam_height}" --hflip "${cam_hflip}" --vflip "${cam_vflip}" -n --hdr -o "${save_path}"/"${img_name}"
 
-elif [ "${cam_version}" = "webcam" ]; then
-  ##CameraV2 - Night vision NoIR
+  #todo: check if camera v2 and v3 can be executed with the same command
+
+elif [ "${cam_type}" = "webcam" ]; then
+  ##webcam
   /usr/bin/fswebcam -r "${cam_width}"x"${cam_height}" "${save_path}"/"${img_name}"
   #todo: implement commands for all other versions
 fi
-
-
 
 
 if [ $? = 0 ]; then

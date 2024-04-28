@@ -1,12 +1,14 @@
 #!/bin/bash
 
-source config
+source ../config
 
 bot_token="${bot_token}"
 receiver="${receiver}"
+disable_notification="${disable_notification}"
+caption="${caption}"
 #todo: implement checks
 
-url="https://api.telegram.org/bot${bot_token}/sendPhoto"
+url="https://api.telegram.org/bot${bot_token}/sendPhoto?disable_notification=${disable_notification}&caption=${caption}"
 curl -X POST -H "Content-Type: multipart/form-data" -F "chat_id=${receiver}" -F "photo=@$1" "$url" > /dev/null
 
 echo "Image transmitted to ${receiver}"
