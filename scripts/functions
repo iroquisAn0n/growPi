@@ -1,0 +1,19 @@
+#!/bin/bash
+
+getDayNightIndicator()
+{
+  # Get the current hour
+  current_hour=$(date +%H)
+
+  # Define the thresholds for day and night
+  day_start=8
+  night_start=21
+
+  # Check if it's day or night
+  if [ "$current_hour" -ge "$day_start" ] && [ "$current_hour" -lt "$night_start" ]; then
+      indicator=☀️
+  else
+      indicator=🌚
+  fi
+
+}

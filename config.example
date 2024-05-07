@@ -24,3 +24,4 @@ bot_token=
 receiver= #telegram chat id (numerical)
 disable_notification=false
 caption=""
+caption_day_night_indicator=true
