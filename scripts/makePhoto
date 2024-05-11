@@ -4,6 +4,7 @@ source ../config
 
 config() {
   cam_type=${type:-rpicam}
+  cam_version=${version:-v3}
 	cam_width=${width:-1280}
 	cam_height=${height:-1024}
 	cam_hflip=${hflip:-1}
@@ -15,7 +16,7 @@ config() {
 }
 
 main() {
-	local now save_path persistence tg_forwarding cam_type
+	local now save_path persistence tg_forwarding cam_type cam_version
 	config
 
   if [ ! -d "${save_path}" ]; then
@@ -30,10 +31,15 @@ main() {
 
 #todo: check if version is valid
 if [ "${cam_type}" = "rpicam" ]; then
-	##rpicam
-	/usr/bin/libcamera-jpeg --width "${cam_width}" --height "${cam_height}" --hflip "${cam_hflip}" --vflip "${cam_vflip}" -n --hdr -o "${save_path}"/"${img_name}"
 
-  #todo: check if camera v2 and v3 can be executed with the same command
+  if [ "${cam_version}" = "v3" ]; then
+	##rpicam v3
+	/usr/bin/libcamera-jpeg --width "${cam_width}" --height "${cam_height}" --hflip "${cam_hflip}" --vflip "${cam_vflip}" -n -o "${save_path}"/"${img_name}"
+
+  elif [ "${cam_version}" = "v2" ]; then
+  ##rpicam v2
+  /usr/bin/raspistill --width "${cam_width}" --height "${cam_height}" --hflip "${cam_hflip}" --vflip "${cam_vflip}" -n -o "${save_path}"/"${img_name}"
+  fi
 
 elif [ "${cam_type}" = "webcam" ]; then
   ##webcam
