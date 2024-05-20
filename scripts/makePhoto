@@ -11,12 +11,12 @@ config() {
 	cam_vflip=${vflip:-1}
 	save_path=${path:-$PWD/photos}
 	img_name=${name:-"temp.jpg"}
-	persistence=${persistence:-true}
+	persist=${persistence:-true}
 	tg_forwarding=${tgforwarding:-false}
 }
 
 main() {
-	local now save_path persistence tg_forwarding cam_type cam_version
+	local now save_path persist tg_forwarding cam_type cam_version
 	config
 
   if [ ! -d "${save_path}" ]; then
@@ -38,7 +38,7 @@ if [ "${cam_type}" = "rpicam" ]; then
 
   elif [ "${cam_version}" = "v2" ]; then
   ##rpicam v2
-  /usr/bin/raspistill --width "${cam_width}" --height "${cam_height}" --hflip "${cam_hflip}" --vflip "${cam_vflip}" -n -o "${save_path}"/"${img_name}"
+  /usr/bin/raspistill --width "${cam_width}" --height "${cam_height}" --hflip --vflip -n -o "${save_path}"/"${img_name}"
   fi
 
 elif [ "${cam_type}" = "webcam" ]; then
@@ -50,7 +50,7 @@ fi
 
 if [ $? = 0 ]; then
 
-  if [ "${persistence}" = true ]; then
+  if [ "${persist}" = true ]; then
     persist
   fi
 
