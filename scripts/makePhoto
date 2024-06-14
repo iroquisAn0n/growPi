@@ -1,6 +1,9 @@
 #!/bin/bash
 
-source ../config
+dir="$(dirname "$(readlink -f "$0")")"
+
+# Construct the path to the config file
+source "$dir/../config"
 
 config() {
   cam_type=${type:-rpicam}
@@ -9,7 +12,7 @@ config() {
 	cam_height=${height:-1024}
 	cam_hflip=${hflip:-1}
 	cam_vflip=${vflip:-1}
-	save_path=${path:-$PWD/photos}
+	save_path=${path:-$dir/../photos}
 	img_name=${name:-"temp.jpg"}
 	persist=${persistence:-true}
 	tg_forwarding=${tgforwarding:-false}
@@ -55,7 +58,7 @@ if [ $? = 0 ]; then
   fi
 
 	if [ "${tg_forwarding}" = true ]; then
-	./transmitPhoto "${save_path}/${img_name}"
+	"$dir/transmitPhoto" "${save_path}/${img_name}"
   fi
 
 else

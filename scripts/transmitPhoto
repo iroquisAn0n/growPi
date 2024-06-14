@@ -1,7 +1,9 @@
 #!/bin/bash
 
-source ../config
-source functions
+dir="$(dirname "$(readlink -f "$0")")"
+
+source "$dir/../config"
+source "$dir/functions"
 
 bot_token="${bot_token}"
 receiver="${receiver}"
@@ -16,7 +18,6 @@ indicator=""
     getDayNightIndicator
     caption=$caption$indicator
   fi
-
 
 url="https://api.telegram.org/bot${bot_token}/sendPhoto?disable_notification=${disable_notification}&caption=${caption}"
 curl -X POST -H "Content-Type: multipart/form-data" -F "chat_id=${receiver}" -F "photo=@$1" "$url" > /dev/null

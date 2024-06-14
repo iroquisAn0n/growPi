@@ -4,10 +4,10 @@ tgforwarding=true
 
 # camera settings
 type=rpicam #possible values: rpicam|webcam
-path=$PWD/../photos
+path=$dir/../photos
 name='temp.jpg'
-width=1280
-height=1024
+width=1600
+height=1200
 
 # rpicam
 version=v3 #possible values: v2|v3
@@ -15,13 +15,9 @@ hflip=1
 vflip=1
 #todo: implement user custom arguments for camera
 
-# webcam
-version=default
-#todo: implement user custom arguments for camera
-
 # telegram settings
 bot_token=
 receiver= #telegram chat id (numerical)
-disable_notification=false
+disable_notification=true
 caption=""
 caption_day_night_indicator=false
