@@ -1,0 +1,24 @@
+#!/bin/bash
+
+dir="$(dirname "$(readlink -f "$0")")"
+
+source "$dir/../config"
+source "$dir/functions"
+
+config() {
+	images_path=${path:-$dir/../photos}
+	tg_forwarding=${tgforwarding:-false}
+	range=${range:-7}
+}
+
+main() {
+
+	local images_path tg_forwarding range
+	config
+    getPhotosForGif
+
+	convert -delay 20 -loop 0 $sorted_files asdf.gif
+
+	}
+
+	main "$@"

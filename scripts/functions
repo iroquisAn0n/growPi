@@ -15,5 +15,68 @@ getDayNightIndicator()
   else
       indicator=🌚
   fi
+}
+
+getPhotosForGif()
+{
+    # Calculate the timestamps for one week ago and today
+    range=$(date -d '7 days ago' +%s)
+    today=$(date +%s)
+
+    declare -A files
+
+    while IFS= read -r file; do
+        # Extract the timestamp from the filename
+        filename=$(basename "$file")
+        timestamp_part="${filename%.jpg}"  # Remove the .jpg extension
+        timestamp_part="${timestamp_part//_/ }"  # Replace underscore with space
+
+
+        echo "Processing file: $filename"
+#        echo "Timestamp part: $timestamp_part"
+
+        # Convert the timestamp to a Unix timestamp
+        file_timestamp=$(date -d "$timestamp_part" +%s 2>/dev/null)
+
+#        echo $file_timestamp
+
+        # Check if the extraction was successful and file is within the last week
+        if [[ $? -eq 0 ]]; then
+#            echo "File timestamp: $file_timestamp"
+            if [[ $file_timestamp -ge $range && $file_timestamp -le $today ]]; then
+                # Store the file and its timestamp in the associative array
+
+                files["$file"]=$filename
+
+                echo "File $file is within the last week"
+            fi
+        else
+            echo "Error processing date for file: $file"
+        fi
+    done < <(find "$path" -type f -name "*.jpg")
+
+echo [${#files[@]} -eq 0]
+    # Check if the array is populated
+    if [[ ${#files[@]} -eq 0 ]]; then
+        echo "No files found within the last week."
+        exit 0
+    fi
+
+    echo "Files found: ${#files[@]}"
+
+    # Prepare a sorted list of files
+    sorted_files=$(for file in "${!files[@]}"; do
+        echo "$file ${files[$file]}"
+    done | sort -k2,2n | cut -d' ' -f1)
+
+    # Use the sorted list of files in another command
+#    echo "Sorted files:"
+#    echo "$sorted_files"
+
+    # For example, let's just print the sorted files or you could use them in another command
+#    for file in $sorted_files; do
+#        echo "Processing sorted file: $file"
+#        # Add any command you want to run on each sorted file here
+#    done
 
 }

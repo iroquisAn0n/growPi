@@ -58,7 +58,7 @@ if [ $? = 0 ]; then
   fi
 
 	if [ "${tg_forwarding}" = true ]; then
-	"$dir/transmitPhoto" "${save_path}/${img_name}"
+	"$dir/transmitTg" "${save_path}/${img_name}"
   fi
 
 else
