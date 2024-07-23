@@ -46,7 +46,24 @@ if [ "${cam_type}" = "rpicam" ]; then
 
 elif [ "${cam_type}" = "webcam" ]; then
   ##webcam
-  /usr/bin/fswebcam -r "${cam_width}"x"${cam_height}" "${save_path}"/"${img_name}"
+
+
+# quick and dirty solution for now
+  if [ "${cam_hflip}" -eq 1 ];
+    then
+    hflip="--flip h"
+    else
+    hflip=""
+  fi
+
+    if [ "${cam_vflip}" -eq 1 ];
+      then
+      vflip="--flip v"
+      else
+      vflip=""
+    fi
+
+  /usr/bin/fswebcam -r "${cam_width}"x"${cam_height}" "${hflip}" "${vflip}" "${save_path}"/"${img_name}"
   #todo: implement commands for all other versions
 fi
 
