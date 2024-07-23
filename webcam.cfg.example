@@ -1,0 +1,14 @@
+#Example configuration
+# See here for all configuration: https://manpages.ubuntu.com/manpages/bionic/man1/fswebcam.1.html
+
+# Horizontal flip
+#flip horizontal
+
+# Vertical flip
+#flip vertical
+
+# Disable banner
+#no-banner
+
+# Image quality
+#jpeg 100
