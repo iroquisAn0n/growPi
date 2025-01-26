@@ -21,3 +21,4 @@ receiver= #telegram chat id (numerical)
 disable_notification=true
 caption=""
 caption_day_night_indicator=false
+grow_start_date="YYYY-MM-DD"

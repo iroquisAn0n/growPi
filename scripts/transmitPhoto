@@ -11,13 +11,22 @@ disable_notification="${disable_notification}"
 caption="${caption}"
 caption_day_night_indicator="${caption_day_night_indicator}"
 indicator=""
-
+grow_start_date="${grow_start_date}"
 #todo: implement checks
 
-  if [ "${caption_day_night_indicator}" = true ]; then
+if [ "${caption_day_night_indicator}" = true ]; then
     getDayNightIndicator
     caption=$caption$indicator
-  fi
+fi
+
+if [ -n "${grow_start_date}" ]; then
+  current_date_seconds=$(date +%s)
+  target_date_seconds=$(date -d "$grow_start_date" +%s)
+  diff_days=$(( (target_date_seconds - current_date_seconds)  / 86400 ))
+  diff=${diff_days#-}
+  caption=${caption}" [Tag: ${diff}]"
+fi
+
 
 url="https://api.telegram.org/bot${bot_token}/sendPhoto?disable_notification=${disable_notification}&caption=${caption}"
 curl -X POST -H "Content-Type: multipart/form-data" -F "chat_id=${receiver}" -F "photo=@$1" "$url" > /dev/null
