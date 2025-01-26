@@ -24,7 +24,7 @@ if [ -n "${grow_start_date}" ]; then
   target_date_seconds=$(date -d "$grow_start_date" +%s)
   diff_days=$(( (target_date_seconds - current_date_seconds)  / 86400 ))
   diff=${diff_days#-}
-  caption=${caption}" [Tag: ${diff}]"
+  caption=${caption}"|Day: ${diff}"
 fi
 
 
