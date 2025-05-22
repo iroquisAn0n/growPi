@@ -12,6 +12,10 @@ caption="${caption}"
 caption_day_night_indicator="${caption_day_night_indicator}"
 indicator=""
 grow_start_date="${grow_start_date}"
+weather="${weather}"
+provider="${provider}"
+coordinateLat="${coordinateLat}"
+coordinateLon="${coordinateLon}"
 #todo: implement checks
 
 if [ "${caption_day_night_indicator}" = true ]; then
@@ -25,6 +29,13 @@ if [ -n "${grow_start_date}" ]; then
   diff_days=$(( (target_date_seconds - current_date_seconds)  / 86400 ))
   diff=${diff_days#-}
   caption=${caption}"|Day: ${diff}"
+fi
+
+if [ "${weather}" = true ]; then
+  json=$(curl -s -X GET "${provider}&latitude=${coordinateLat}&longitude=${coordinateLon}" -H "Content-Type: application/json")
+  temperature=$(echo "$json" | jq '.current.temperature_2m')
+  humidity=$(echo "$json" | jq '.current.relative_humidity_2m')
+  caption=${caption}"|💧:${humidity}|🌡️:${temperature}°C"
 fi
 
 
