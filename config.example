@@ -24,6 +24,7 @@ caption_day_night_indicator=false
 grow_start_date="YYYY-MM-DD"
 
 # weather; if weather=true you must set the other params as well
+# for this feature the "jq" package is required (https://jqlang.org/)
 weather=false
 provider=https://api.open-meteo.com/v1/forecast?current=apparent_temperature,rain,temperature_2m,relative_humidity_2m,weather_code&forecast_days=1
 coordinateLat=12.341113

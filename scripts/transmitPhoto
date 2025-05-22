@@ -35,7 +35,7 @@ if [ "${weather}" = true ]; then
   json=$(curl -s -X GET "${provider}&latitude=${coordinateLat}&longitude=${coordinateLon}" -H "Content-Type: application/json")
   temperature=$(echo "$json" | jq '.current.temperature_2m')
   humidity=$(echo "$json" | jq '.current.relative_humidity_2m')
-  caption=${caption}"|💧:${humidity}|🌡️:${temperature}°C"
+  caption=${caption}"|💧:${humidity}%|🌡️:${temperature}°C"
 fi
 
 
